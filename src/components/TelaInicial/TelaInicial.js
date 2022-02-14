@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import AnimatedSplash from "react-native-animated-splash-screen";
 
-import { StyleSheet, Text, SafeAreaView, View, StatusBar, TouchableOpacity, FlatList, Modal, TextInput, AsyncStorage} from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, StatusBar, TouchableOpacity, FlatList, Modal, TextInput } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import TaskList from './src/components/TaskList';
+import TaskList from '../TaskList';
 import { Ionicons} from '@expo/vector-icons'
 import * as Animatable from 'react-native-animatable';
 
@@ -63,7 +64,7 @@ export default function TelaInicial() {
   
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor="#171d31" barStyle="dark-content" />
+      <StatusBar backgroundColor="#171d31" barStyle="light-content" />
       <View style={styles.content}>
         <Text style={styles.title}> Minhas tarefas </Text>
       </View>
@@ -73,7 +74,7 @@ export default function TelaInicial() {
       showsHorizontalScrollIndicator={false}
       data={task}
       keyExtractor={ (item) => String(item.key) }
-      renderItem={ ({item}) => <TaskList style={{color: item.state ? "green" : "red"}} data={item} handleDelete={handleDelete} /> }
+      renderItem={ ({item}) => <TaskList data={item} handleDelete={handleDelete} /> }
       />
       
 
@@ -81,22 +82,22 @@ export default function TelaInicial() {
         <SafeAreaView style={styles.modal}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setOpen(false)}>
-              <Ionicons style={{marginLeft: 5, marginRight: 5}} name="md-arrow-back" size={40} color="#fff" />
+              <Ionicons style={{marginLeft: 5, marginRight: 5}} name="md-arrow-back" size={30} color="#fff" />
             </TouchableOpacity>
             <Text style={styles.modalTitle}>Nova tarefa</Text>
             <AnimatedSplash
-        translucent={true}
-        isLoaded={false}
-        logoImage={require("./assets/NovaTarefa.gif")}
-        logoHeight={150}
-        logoWidth={150}
-      />          
+              translucent={true}
+              isLoaded={false}
+              logoImage={require("../../../assets/NovaTarefa.gif")}
+              logoHeight={150}
+              logoWidth={150}
+            />          
           </View>
 
           <Animatable.View style={styles.modalBody} animation="fadeInUp">
             <TextInput 
             multiline={true}
-            placeholderTextColor="#747474"
+            placeholderTextColor="#000"
             placeholder="O que precisa fazer hoje?" 
             style={styles.input}
             value={input}
@@ -107,7 +108,6 @@ export default function TelaInicial() {
               <Text style={styles.handleAddText}>Cadastrar</Text>
             </TouchableOpacity>
           </Animatable.View>
-
         </SafeAreaView>
       </Modal>
 
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     zIndex: 9,
     shadowColor: '#000',
-    shadowOpacity: 0.2,
+    shadowOpacity: 2,
     shadowOffset:{
       width: 1,
       height: 3,

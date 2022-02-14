@@ -1,21 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import TelaInicial from './TelaInicial';
+import TelaInicial from './src/components/TelaInicial/TelaInicial';
 
-export default class App extends React.Component{
-
-  state = {
-    isLoaded: false,
-  };
-
-  render(){
+export default function App() {  
   return(
     <View style={styles.container}>
       <TelaInicial/>
     </View>
   )
-  }
 };
 
 const styles = StyleSheet.create({
