@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import TaskList from '../TaskList';
 import { Ionicons} from '@expo/vector-icons'
 import * as Animatable from 'react-native-animatable';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 const AnimatedBtn = Animatable.createAnimatableComponent(TouchableOpacity);
@@ -65,10 +66,8 @@ export default function TelaInicial() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#171d31" barStyle="light-content" />
-      <View style={styles.content}>
         <Text style={styles.title}> Minhas tarefas </Text>
-      </View>
-
+     
       <FlatList 
       marginHorizontal={10}
       showsHorizontalScrollIndicator={false}
@@ -76,7 +75,6 @@ export default function TelaInicial() {
       keyExtractor={ (item) => String(item.key) }
       renderItem={ ({item}) => <TaskList data={item} handleDelete={handleDelete} /> }
       />
-      
 
       <Modal animationType="slide" transparent={false} visible={open}>
         <SafeAreaView style={styles.modal}>
@@ -89,7 +87,6 @@ export default function TelaInicial() {
               translucent={true}
               isLoaded={false}
               logoImage={require("../../../assets/NovaTarefa.gif")}
-              logoHeight={150}
               logoWidth={150}
             />          
           </View>
@@ -129,14 +126,23 @@ export default function TelaInicial() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#171d31',
+    backgroundColor: '#071e42',
   },
   title: {
-    marginTop: 10,
-    paddingBottom: 10,
-    fontSize: 25,
+    marginTop: 5,
+    paddingBottom: 4,
+    fontSize: 35,
     textAlign: 'center',
-    color: '#fff'
+    color: '#fff',
+    backgroundColor: '#071e42',
+    borderBottomColor: '#fff',
+    borderBottomWidth: 0.5,
+    textShadowColor: '#000',
+    textShadowOffset: {
+      width: 3,
+      height: 3
+    },
+    textShadowRadius: 10,
   },
   fab: {
     position: 'absolute',
