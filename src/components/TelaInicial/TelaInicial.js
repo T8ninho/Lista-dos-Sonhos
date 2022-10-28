@@ -1,15 +1,15 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import AnimatedSplash from "react-native-animated-splash-screen";
 
-import { StyleSheet, Text, SafeAreaView, View, StatusBar, TouchableOpacity, FlatList, Modal, TextInput } from 'react-native';
+import { ImageBackground, StyleSheet, Text, SafeAreaView, View, StatusBar, TouchableOpacity, FlatList, Modal, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import TaskList from '../TaskList';
 import { Ionicons} from '@expo/vector-icons'
 import * as Animatable from 'react-native-animatable';
-import { LinearGradient } from 'expo-linear-gradient';
 
-
+import BackgroundImage from "../../Images/background.jpg";
+import FabButton from '../FabButton.js';
 const AnimatedBtn = Animatable.createAnimatableComponent(TouchableOpacity);
 
 export default function TelaInicial() {
@@ -65,8 +65,13 @@ export default function TelaInicial() {
   
   return (
     <SafeAreaView style={styles.container}>
+      <ImageBackground source={BackgroundImage} resizeMode="cover" style={styles.image} blurRadius={6}>
       <StatusBar backgroundColor="#171d31" barStyle="light-content" />
+      
+      <View style={styles.titleView}>
         <Text style={styles.title}> Minhas tarefas </Text>
+      </View>
+        
      
       <FlatList 
       marginHorizontal={10}
@@ -108,7 +113,9 @@ export default function TelaInicial() {
         </SafeAreaView>
       </Modal>
 
-      <AnimatedBtn 
+      <FabButton NovoItem={() => setOpen(true)} style={{ bottom: 80, right: 60 }}/>
+
+      {/* <AnimatedBtn 
       style={styles.fab}
       useNativeDriver
       animation="bounceInUp"
@@ -116,9 +123,9 @@ export default function TelaInicial() {
       onPress={ () => setOpen(true)}
       >
         <Ionicons name="ios-add" size={35} color="#fff" />
-      </AnimatedBtn>
+      </AnimatedBtn> */}
 
-
+      </ImageBackground>
     </SafeAreaView>
   );
 } 
@@ -128,15 +135,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#071e42',
   },
-  title: {
+  image: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  titleView: {
     marginTop: 5,
     paddingBottom: 4,
+    borderBottomWidth: 0.5
+  },
+  title: {
     fontSize: 35,
     textAlign: 'center',
     color: '#fff',
-    backgroundColor: '#071e42',
-    borderBottomColor: '#fff',
-    borderBottomWidth: 0.5,
     textShadowColor: '#000',
     textShadowOffset: {
       width: 3,
