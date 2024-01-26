@@ -1,16 +1,26 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import AnimatedSplash from "react-native-animated-splash-screen";
-
-import { ImageBackground, StyleSheet, Text, SafeAreaView, View, StatusBar, TouchableOpacity, FlatList, Modal, TextInput } from 'react-native';
+import { 
+  ImageBackground, 
+  StyleSheet, 
+  Text, 
+  SafeAreaView, 
+  View, 
+  StatusBar, 
+  TouchableOpacity, 
+  FlatList, 
+  Modal, 
+  TextInput,
+  Image
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import TaskList from '../TaskList';
-import { Ionicons} from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import * as Animatable from 'react-native-animatable';
 
+import Gatinho from '../../Images/Gatinho.gif'
+import TaskList from '../TaskList';
 import BackgroundImage from "../../Images/background.jpg";
-import FabButton from '../FabButton.js';
-const AnimatedBtn = Animatable.createAnimatableComponent(TouchableOpacity);
+import FabButton from '../FabButton';
+
 
 export default function TelaInicial() {
 
@@ -34,7 +44,6 @@ export default function TelaInicial() {
   }, [])
 
   useEffect(() => {
-
     async function saveTasks(){
       await AsyncStorage.setItem('@task', JSON.stringify(task));
       
@@ -46,9 +55,9 @@ export default function TelaInicial() {
 
   function handleAdd(){
     if(input === '') return;
-    
+    const KEY = Math.floor(Math.random() * 9999999999)
     const data = {
-      key: input,
+      key: KEY,
       task: input
     };
   
@@ -84,16 +93,13 @@ export default function TelaInicial() {
       <Modal animationType="slide" transparent={false} visible={open}>
         <SafeAreaView style={styles.modal}>
           <View style={styles.modalHeader}>
-            <TouchableOpacity onPress={() => setOpen(false)}>
-              <Ionicons style={{marginLeft: 5, marginRight: 5}} name="md-arrow-back" size={30} color="#fff" />
-            </TouchableOpacity>
-            <Text style={styles.modalTitle}>Nova tarefa</Text>
-            <AnimatedSplash
-              translucent={true}
-              isLoaded={false}
-              logoImage={require("../../../assets/NovaTarefa.gif")}
-              logoWidth={150}
-            />          
+            <>
+              <TouchableOpacity onPress={() => setOpen(false)}>
+                <Ionicons style={{marginLeft: 5, marginRight: 5}} name="arrow-back" size={30} color="#fff" />
+              </TouchableOpacity>
+              <Text style={styles.modalTitle}>Nova tarefa</Text>
+            </>
+            <Image style={styles.logoNovaTarefa} source={Gatinho} />          
           </View>
 
           <Animatable.View style={styles.modalBody} animation="fadeInUp">
@@ -106,7 +112,7 @@ export default function TelaInicial() {
             onChangeText={ (texto) => setInput(texto)}
             />
 
-            <TouchableOpacity style={styles.handleAdd} onPress={ handleAdd }>
+            <TouchableOpacity style={styles.handleAdd} onPress={handleAdd}>
               <Text style={styles.handleAddText}>Cadastrar</Text>
             </TouchableOpacity>
           </Animatable.View>
@@ -114,16 +120,6 @@ export default function TelaInicial() {
       </Modal>
 
       <FabButton NovoItem={() => setOpen(true)} style={{ bottom: 80, right: 60 }}/>
-
-      {/* <AnimatedBtn 
-      style={styles.fab}
-      useNativeDriver
-      animation="bounceInUp"
-      duration={1500}
-      onPress={ () => setOpen(true)}
-      >
-        <Ionicons name="ios-add" size={35} color="#fff" />
-      </AnimatedBtn> */}
 
       </ImageBackground>
     </SafeAreaView>
@@ -180,9 +176,14 @@ const styles = StyleSheet.create({
   },
   modalHeader: {
     marginLeft: 10,
-    marginTop: 20,
+    paddingTop: 20,
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  logoNovaTarefa: {
+    height: 150,
+    position: 'absolute',
+    right: 0,
   },
   modalTitle: {
     marginLeft: 15,
