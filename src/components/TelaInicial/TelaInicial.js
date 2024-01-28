@@ -13,6 +13,7 @@ import {
   Image
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { v4 as uuid } from 'uuid';
 
 import TaskList from '../TaskList';
 import BackgroundImage from "../../Images/background.jpg";
@@ -24,8 +25,6 @@ export default function TelaInicial() {
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
 
-  const Cor = '#fff';
-
   useEffect(() => {
     async function loadTasks() {
       const taskStorage = await AsyncStorage.getItem('@task');
@@ -34,6 +33,7 @@ export default function TelaInicial() {
       }
     }
     loadTasks();
+    console.log(task)
   }, [])
 
   useEffect(() => {
@@ -46,16 +46,21 @@ export default function TelaInicial() {
 
   function handleAdd(){
     if(input === '') return;
-    const KEY = Math.floor(Math.random() * 9999999999)
+    if(input == ' ') return;
     const data = {
-      key: KEY,
-      task: input
+      key: uuid(),
+      task: input,
+      completed: false
     };
     setTask([...task, data]);
     setOpen(false);
     setInput('');
   }
 
+
+  function handleComplete(data) {
+    setTask((item) => item.map((task) => task.key === data ? {...task, completed: !task.completed} : task))
+  }
   const handleDelete = useCallback((data) => {
     const find = task.filter(r => r.key !== data.key);
     setTask(find);
@@ -76,9 +81,15 @@ export default function TelaInicial() {
         showsHorizontalScrollIndicator={false}
         data={task}
         keyExtractor={ (item) => String(item.key) }
-        renderItem={ ({item}) => <TaskList data={item} handleDelete={handleDelete} /> }
+        renderItem={ 
+          ({item}) => <TaskList 
+                        data={item} 
+                        handleDelete={handleDelete} 
+                        handleComplete={() => handleComplete(item.key)} 
+                      />
+        }
       />
-
+ 
       <NovaTarefa 
         visible={open} 
         input={input} 
@@ -137,22 +148,5 @@ const styles = StyleSheet.create({
       width: 1,
       height: 3,
     }
-  },
-//  =============================================
-  modal: {
-  },
-  modalHeader: {
-  },
-  logoNovaTarefa: {
-  },
-  modalTitle: {
-  },
-  mordalBody: {
-  },
-  input: {
-  },
-  handleAdd: {
-  },
-  handleAddText: {
   }
 });
