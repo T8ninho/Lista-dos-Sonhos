@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import TaskList from '../TaskList';
 import BackgroundImage from "../../Images/background.jpg";
 import FabButton from '../FabButton';
+import NovaTarefa from '../NovaTarefa/NovaTarefa';
 
 export default function TelaInicial() {
   const [task, setTask] = useState([]);
@@ -78,7 +79,13 @@ export default function TelaInicial() {
         renderItem={ ({item}) => <TaskList data={item} handleDelete={handleDelete} /> }
       />
 
-      
+      <NovaTarefa 
+        visible={open} 
+        input={input} 
+        handleAdd={handleAdd} 
+        setInput={setInput} 
+        setOpen={setOpen}
+      />
 
       <FabButton NovoItem={() => setOpen(true)} style={{ bottom: 80, right: 60 }}/>
 
@@ -131,51 +138,21 @@ const styles = StyleSheet.create({
       height: 3,
     }
   },
+//  =============================================
   modal: {
-    flex: 1,
-    backgroundColor: '#171d31',
   },
   modalHeader: {
-    marginLeft: 10,
-    paddingTop: 20,
-    flexDirection: 'row',
-    alignItems: 'center'
   },
   logoNovaTarefa: {
-    position: 'absolute',
-    right: 0,
   },
   modalTitle: {
-    marginLeft: 15,
-    fontSize: 23,
-    color: '#fff',
   },
   mordalBody: {
-    marginTop: 15,
   },
   input: {
-    fontSize: 15,
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 30,
-    backgroundColor: '#fff',
-    padding: 9,
-    height: 85,
-    textAlignVertical: 'top',
-    color: '#000',
-    borderRadius: 5,
   },
   handleAdd: {
-    backgroundColor: '#2f7',
-    marginTop: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 10,
-    marginRight: 10,
-    height: 40,
-    borderRadius: 5,
   },
   handleAddText: {
-    fontSize: 20,
   }
 });
