@@ -84,8 +84,9 @@ export default function TelaInicial() {
         renderItem={ 
           ({item}) => <TaskList 
                         data={item} 
-                        handleDelete={handleDelete} 
-                        handleComplete={() => handleComplete(item.key)} 
+                        handleDelete={() => handleDelete(item)} 
+                        handleComplete={() => handleComplete(item.key)}
+                        handleEdit={() => {}}
                       />
         }
       />
