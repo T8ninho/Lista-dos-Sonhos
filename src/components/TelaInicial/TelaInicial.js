@@ -13,17 +13,12 @@ import {
   Image
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Ionicons } from '@expo/vector-icons'
-import * as Animatable from 'react-native-animatable';
 
-import Gatinho from '../../Images/Gatinho.gif'
 import TaskList from '../TaskList';
 import BackgroundImage from "../../Images/background.jpg";
 import FabButton from '../FabButton';
 
-
 export default function TelaInicial() {
-
   const [task, setTask] = useState([]);
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
@@ -33,14 +28,11 @@ export default function TelaInicial() {
   useEffect(() => {
     async function loadTasks() {
       const taskStorage = await AsyncStorage.getItem('@task');
-
       if(taskStorage){
         setTask(JSON.parse(taskStorage));
       }
     }
-
     loadTasks();
-
   }, [])
 
   useEffect(() => {
@@ -48,9 +40,7 @@ export default function TelaInicial() {
       await AsyncStorage.setItem('@task', JSON.stringify(task));
       
     }
-
     saveTasks();
-
   }, [task]);
 
   function handleAdd(){
@@ -60,11 +50,9 @@ export default function TelaInicial() {
       key: KEY,
       task: input
     };
-  
     setTask([...task, data]);
     setOpen(false);
     setInput('');
-  
   }
 
   const handleDelete = useCallback((data) => {
@@ -83,41 +71,14 @@ export default function TelaInicial() {
         
      
       <FlatList 
-      marginHorizontal={10}
-      showsHorizontalScrollIndicator={false}
-      data={task}
-      keyExtractor={ (item) => String(item.key) }
-      renderItem={ ({item}) => <TaskList data={item} handleDelete={handleDelete} /> }
+        marginHorizontal={10}
+        showsHorizontalScrollIndicator={false}
+        data={task}
+        keyExtractor={ (item) => String(item.key) }
+        renderItem={ ({item}) => <TaskList data={item} handleDelete={handleDelete} /> }
       />
 
-      <Modal animationType="slide" transparent={false} visible={open}>
-        <SafeAreaView style={styles.modal}>
-          <View style={styles.modalHeader}>
-            <>
-              <TouchableOpacity onPress={() => setOpen(false)}>
-                <Ionicons style={{marginLeft: 5, marginRight: 5}} name="arrow-back" size={30} color="#fff" />
-              </TouchableOpacity>
-              <Text style={styles.modalTitle}>Nova tarefa</Text>
-            </>
-            <Image style={styles.logoNovaTarefa} source={Gatinho} />          
-          </View>
-
-          <Animatable.View style={styles.modalBody} animation="fadeInUp">
-            <TextInput 
-            multiline={true}
-            placeholderTextColor="#000"
-            placeholder="O que precisa fazer hoje?" 
-            style={styles.input}
-            value={input}
-            onChangeText={ (texto) => setInput(texto)}
-            />
-
-            <TouchableOpacity style={styles.handleAdd} onPress={handleAdd}>
-              <Text style={styles.handleAddText}>Cadastrar</Text>
-            </TouchableOpacity>
-          </Animatable.View>
-        </SafeAreaView>
-      </Modal>
+      
 
       <FabButton NovoItem={() => setOpen(true)} style={{ bottom: 80, right: 60 }}/>
 
@@ -181,7 +142,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   logoNovaTarefa: {
-    height: 150,
     position: 'absolute',
     right: 0,
   },
