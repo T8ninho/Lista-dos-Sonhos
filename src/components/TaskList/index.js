@@ -23,6 +23,7 @@ export default function TaskList({ data, handleDelete, handleComplete, handleEdi
                 </TouchableOpacity>
                 <View>
                   <Text style={data.completed ? styles.taskCompleted : styles.taskIncomplete}>{data.task}</Text>
+                  <Text style={data.completed ? styles.taskCompleted : styles.taskIncomplete}>{data.key}</Text>
                 </View>
               </View>
               <View style={styles.containerTaskButtons}>
@@ -58,10 +59,10 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: '#171d31',
+      backgroundColor: '#171d31aa',
       borderRadius: 5,
       padding: 10,
-      elevation: 1,
+      // elevation: 1,
     },
     containerTask: {
       flex: 1,

@@ -48,7 +48,7 @@ export default function TelaInicial() {
     if(input === '') return;
     if(input == ' ') return;
     const data = {
-      key: uuid(),
+      key: task.length + 1,
       task: input,
       completed: false
     };
@@ -65,6 +65,11 @@ export default function TelaInicial() {
     const find = task.filter(r => r.key !== data.key);
     setTask(find);
   })
+
+  function handleEdit(taskId, newTitle){
+    setOpen(true);
+    setInput(task.map((task) => (task.id === taskId ? {...task, task: newTitle} : task)))
+  }
   
   return (
     <SafeAreaView style={styles.container}>
@@ -74,7 +79,6 @@ export default function TelaInicial() {
       <View style={styles.titleView}>
         <Text style={styles.title}> Minhas tarefas </Text>
       </View>
-        
      
       <FlatList 
         marginHorizontal={10}
@@ -86,7 +90,7 @@ export default function TelaInicial() {
                         data={item} 
                         handleDelete={() => handleDelete(item)} 
                         handleComplete={() => handleComplete(item.key)}
-                        handleEdit={() => {}}
+                        handleEdit={() => handleEdit(item.key)}
                       />
         }
       />
