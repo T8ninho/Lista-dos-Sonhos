@@ -14,11 +14,13 @@ import TaskList from '../TaskList';
 import BackgroundImage from "../../Images/background.jpg";
 import FabButton from '../FabButton';
 import NovaTarefa from '../NovaTarefa/NovaTarefa';
+import ModeloTarefas from '../ModeloTarefas/ModeloTarefas';
 
 export default function TelaInicial() {
   const [tasks, setTasks] = useState([]);
   const [taskEdit, setTaskEdit] = useState([]);
-  const [open, setOpen] = useState(false)
+  const [openModalTask, setOpenModalTask] = useState(false)
+  const [openModalModelo, setOpenModalModelo] = useState(false)
   const [input, setInput] = useState('')
   const [editMode, setEditMode] = useState(false)
 
@@ -54,7 +56,8 @@ export default function TelaInicial() {
     setEditMode(false)
     setInput('')
     setTaskEdit([])
-    setOpen(false)
+    setOpenModalTask(false)
+    setOpenModalModelo(false)
   }
 
   const handleAdd = () => {
@@ -62,6 +65,9 @@ export default function TelaInicial() {
       setTasks([...tasks, { id: uuid(), title: input, completed: false }]);
       BackButton()
     }
+  };
+  const handleAddModelo = (item) => {
+      setTasks([...tasks, { id: uuid(), title: item, completed: false }]);
   };
 
   const handleDelete = (id) => {
@@ -78,7 +84,7 @@ export default function TelaInicial() {
   
   const handleEdit = (Item) => {
     setEditMode(true)
-    setOpen(true);
+    setOpenModalTask(true);
     setTaskEdit(Item)
     setInput(Item.title)
     console.log(Item)
@@ -99,7 +105,7 @@ export default function TelaInicial() {
       <StatusBar backgroundColor="#171d31" barStyle="light-content" />
       
       <View style={styles.titleView}>
-        <Text style={styles.title}> Minhas tarefas </Text>
+        <Text style={styles.title}> Lista dos Sonhos </Text>
       </View>
      
       <FlatList 
@@ -117,18 +123,26 @@ export default function TelaInicial() {
         }
       />
  
-      <NovaTarefa 
-        visible={open} 
-        input={input} 
-        handleAdd={handleAdd} 
-        setInput={setInput} 
+      <NovaTarefa
+        visible={openModalTask}
+        input={input}
+        handleAdd={handleAdd}
+        setInput={setInput}
         BackButton={BackButton}
         editMode={editMode}
-        setEditMode={setEditMode}
         saveEdit={saveEdit}
       />
+      <ModeloTarefas
+        visible={openModalModelo}
+        handleAddModelo={handleAddModelo}
+        BackButton={BackButton}
+      />
 
-      <FabButton NovoItem={() => setOpen(true)} style={{ bottom: 80, right: 60 }}/>
+      <FabButton
+        NovaTarefa={() => setOpenModalTask(true)}
+        ModeloTarefas={() => setOpenModalModelo(true)}
+        style={{ bottom: 80, right: 60 }}
+      />
 
       </ImageBackground>
     </View>

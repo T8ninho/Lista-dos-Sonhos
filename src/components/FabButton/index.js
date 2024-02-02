@@ -57,13 +57,13 @@ export default class FabButton extends Component {
     }
     return (
         <View style={[styles.container, this.props.style]}>
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={this.props.ModeloTarefas}>
                 <Animated.View style={[styles.button, styles.submenu, coracaoStyle]}>
                     <AntDesign name="heart" size={24} color="#FFF" />
                 </Animated.View>
             </TouchableWithoutFeedback>
 
-            <TouchableWithoutFeedback onPress={this.props.NovoItem}>
+            <TouchableWithoutFeedback onPress={this.props.NovaTarefa}>
                 <Animated.View style={[styles.button, styles.submenu, formStyle]}>
                     <AntDesign name="form" size={24} color="#FFF" />
                 </Animated.View>
