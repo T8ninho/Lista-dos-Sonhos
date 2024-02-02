@@ -108,11 +108,11 @@ export default function TelaInicial() {
         keyExtractor={(item) => item.id}
         renderItem={({item}) => (
               <TaskList 
-                        data={item} 
-                        handleDelete={() => handleDelete(item.id)} 
-                        handleComplete={() => handleComplete(item.id)}
-                        handleEdit={() => handleEdit(item)}
-                      />
+                data={item} 
+                handleDelete={() => handleDelete(item.id)} 
+                handleComplete={() => handleComplete(item.id)}
+                handleEdit={() => handleEdit(item)}
+              />
         )
         }
       />
