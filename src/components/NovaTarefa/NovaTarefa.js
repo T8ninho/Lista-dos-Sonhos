@@ -4,18 +4,15 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Gatinho from '../../Images/Gatinho.gif'
 
-const NovaTarefa = ({ visible, input, handleAdd, setInput, setOpen }) => {
+export default function NovaTarefa({ visible, input, handleAdd, setInput, BackButton, editMode, saveEdit }) {
 	return(
 		<Modal animationType="slide" transparent={false} visible={visible}>
 			<View style={styles.modal}>
 				<View style={styles.modalHeader}>
-					<>
-						<TouchableOpacity onPress={() => setOpen(false)}>
-							<Ionicons style={{marginLeft: 5, marginRight: 5}} name="arrow-back" size={30} color="#fff" />
-						</TouchableOpacity>
-						<Text style={styles.modalTitle}>Nova tarefa</Text>
-					</>
-					<Image style={styles.logoNovaTarefa} source={Gatinho} />          
+					<TouchableOpacity onPress={BackButton}>
+						<Ionicons style={{marginLeft: 5, marginRight: 5}} name="arrow-back" size={30} color="#fff" />
+					</TouchableOpacity>
+					<Text style={styles.modalTitle}>{editMode ? 'Editando Tarefa' : 'Nova Tarefa'}</Text>
 				</View>
 
 				<Animatable.View style={styles.modalBody} animation="fadeInUp">
@@ -28,14 +25,21 @@ const NovaTarefa = ({ visible, input, handleAdd, setInput, setOpen }) => {
 						onChangeText={ (texto) => setInput(texto)}
 					/>
 
-					<TouchableOpacity style={styles.modalButtonAdd} onPress={handleAdd}>
-						<Text style={styles.modalButtonAddText}>Cadastrar</Text>
+					<TouchableOpacity style={styles.modalButtonAdd} onPress={editMode ? saveEdit : handleAdd}>
+						<Text style={styles.modalButtonAddText}>{editMode ? 'Atualizar tarefa' : 'Cadastrar'}</Text>
 					</TouchableOpacity>
+					<View style={styles.containerImage}>
+						<Image source={Gatinho} />  
+					</View>
 				</Animatable.View>
+				
 			</View>
       	</Modal>
 	)
 }
+
+
+;
 
 const styles = StyleSheet.create({
 	modal: {
@@ -53,9 +57,9 @@ const styles = StyleSheet.create({
 		fontSize: 23,
 		color: '#fff',
 	},
-	logoNovaTarefa: {
-		position: 'absolute',
-		right: 0,
+	containerImage: {
+		alignItems: 'center',
+		paddingTop: '20%'
 	},
 	modalBody: {
 		marginTop: 15,
@@ -86,5 +90,3 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 	},
 })
-
-export default NovaTarefa;

@@ -1,16 +1,11 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ImageBackground, 
   StyleSheet, 
   Text, 
-  SafeAreaView, 
   View, 
-  StatusBar, 
-  TouchableOpacity, 
+  StatusBar,
   FlatList, 
-  Modal, 
-  TextInput,
-  Image
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { v4 as uuid } from 'uuid';
@@ -21,58 +16,85 @@ import FabButton from '../FabButton';
 import NovaTarefa from '../NovaTarefa/NovaTarefa';
 
 export default function TelaInicial() {
-  const [task, setTask] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [taskEdit, setTaskEdit] = useState([]);
   const [open, setOpen] = useState(false)
   const [input, setInput] = useState('')
+  const [editMode, setEditMode] = useState(false)
 
   useEffect(() => {
-    async function loadTasks() {
-      const taskStorage = await AsyncStorage.getItem('@task');
-      if(taskStorage){
-        setTask(JSON.parse(taskStorage));
+    const loadTasks = async () => {
+      try {
+        const taskStorage = await AsyncStorage.getItem('@tasks');
+        if (taskStorage) {
+          setTasks(JSON.parse(taskStorage));
+        }
+      } catch (error) {
+        console.error('Error loading tasks:', error);
       }
-    }
+    };
+    
     loadTasks();
-    console.log(task)
-  }, [])
+  }, []);
 
   useEffect(() => {
-    async function saveTasks(){
-      await AsyncStorage.setItem('@task', JSON.stringify(task));
-      
-    }
-    saveTasks();
-  }, [task]);
-
-  function handleAdd(){
-    if(input === '') return;
-    if(input == ' ') return;
-    const data = {
-      key: task.length + 1,
-      task: input,
-      completed: false
+    const saveTasks = async () => {
+      try {
+        await AsyncStorage.setItem('@tasks', JSON.stringify(tasks));
+      } catch (error) {
+        console.error('Error saving tasks:', error);
+      }
     };
-    setTask([...task, data]);
-    setOpen(false);
-    setInput('');
+
+    saveTasks();
+    console.log(tasks)
+  }, [tasks]);
+
+  const BackButton = () => {
+    setEditMode(false)
+    setInput('')
+    setTaskEdit([])
+    setOpen(false)
   }
 
+  const handleAdd = () => {
+    if (input.trim() !== '') {
+      setTasks([...tasks, { id: uuid(), title: input, completed: false }]);
+      BackButton()
+    }
+  };
 
-  function handleComplete(data) {
-    setTask((item) => item.map((task) => task.key === data ? {...task, completed: !task.completed} : task))
-  }
-  const handleDelete = useCallback((data) => {
-    const find = task.filter(r => r.key !== data.key);
-    setTask(find);
-  })
+  const handleDelete = (id) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+  };
 
-  function handleEdit(taskId, newTitle){
-    setOpen(true);
-    setInput(task.map((task) => (task.id === taskId ? {...task, task: newTitle} : task)))
+  const handleComplete = (id) => {
+	const updatedTasks = tasks.map((item) =>
+      item.id === id ? { ...item, completed: !item.completed } : item
+    );
+    setTasks(updatedTasks) 
   }
   
+  const handleEdit = (Item) => {
+    setEditMode(true)
+    setOpen(true);
+    setTaskEdit(Item)
+    setInput(Item.title)
+    console.log(Item)
+  }
+
+  const saveEdit = () => {
+    const updatedTasks = tasks.map((item) =>
+    item.id === taskEdit.id ? { ...item, id: item.id, title: input, completed: item.completed } : item
+    );
+    setTasks(updatedTasks) 
+    BackButton()
+    console.log(updatedTasks)
+  }
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ImageBackground source={BackgroundImage} resizeMode="cover" style={styles.image} blurRadius={6}>
       <StatusBar backgroundColor="#171d31" barStyle="light-content" />
       
@@ -82,16 +104,16 @@ export default function TelaInicial() {
      
       <FlatList 
         marginHorizontal={10}
-        showsHorizontalScrollIndicator={false}
-        data={task}
-        keyExtractor={ (item) => String(item.key) }
-        renderItem={ 
-          ({item}) => <TaskList 
+        data={tasks}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}) => (
+              <TaskList 
                         data={item} 
-                        handleDelete={() => handleDelete(item)} 
-                        handleComplete={() => handleComplete(item.key)}
-                        handleEdit={() => handleEdit(item.key)}
+                        handleDelete={() => handleDelete(item.id)} 
+                        handleComplete={() => handleComplete(item.id)}
+                        handleEdit={() => handleEdit(item)}
                       />
+        )
         }
       />
  
@@ -100,13 +122,16 @@ export default function TelaInicial() {
         input={input} 
         handleAdd={handleAdd} 
         setInput={setInput} 
-        setOpen={setOpen}
+        BackButton={BackButton}
+        editMode={editMode}
+        setEditMode={setEditMode}
+        saveEdit={saveEdit}
       />
 
       <FabButton NovoItem={() => setOpen(true)} style={{ bottom: 80, right: 60 }}/>
 
       </ImageBackground>
-    </SafeAreaView>
+    </View>
   );
 } 
 

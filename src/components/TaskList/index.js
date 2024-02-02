@@ -22,9 +22,8 @@ export default function TaskList({ data, handleDelete, handleComplete, handleEdi
                   />
                 </TouchableOpacity>
                 <View>
-                  <Text style={data.completed ? styles.taskCompleted : styles.taskIncomplete}>{data.task}</Text>
-                  <Text style={data.completed ? styles.taskCompleted : styles.taskIncomplete}>{data.key}</Text>
-                </View>
+                  <Text style={data.completed ? styles.taskCompleted : styles.taskIncomplete}>{data.title}</Text>
+                 </View>
               </View>
               <View style={styles.containerTaskButtons}>
                 <TouchableOpacity 
