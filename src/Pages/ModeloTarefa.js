@@ -2,35 +2,27 @@ import { Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } fro
 import * as Animatable from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
 
-import Gatinho from '../../Images/Gatinho.gif'
+import TaskList from "../components/TaskList";
+import ButtonModelo from "../components/ModeloTarefa/ButtonModelo";
 
-export default function NovaTarefa({ visible, input, handleAdd, setInput, BackButton, editMode, saveEdit }) {
+export default function ModeloTarefas({ visible, handleAddModelo, BackButton }) {
 	return(
-		<Modal animationType="slide" transparent={false} visible={visible}>
+		<Modal animationType="fade" transparent={true} visible={visible}>
 			<View style={styles.modal}>
 				<View style={styles.modalHeader}>
 					<TouchableOpacity onPress={BackButton}>
 						<Ionicons style={{marginLeft: 5, marginRight: 5}} name="arrow-back" size={30} color="#fff" />
 					</TouchableOpacity>
-					<Text style={styles.modalTitle}>{editMode ? 'Editando Tarefa' : 'Nova Tarefa'}</Text>
+					<Text style={styles.modalTitle}>Modelo de lista</Text>
 				</View>
 
 				<Animatable.View style={styles.modalBody} animation="fadeInUp">
-					<TextInput 
-						multiline={true}
-						placeholderTextColor="#000"
-						placeholder="O que precisa fazer hoje?" 
-						style={styles.modalInput}
-						value={input}
-						onChangeText={ (texto) => setInput(texto)}
+					<ButtonModelo 
+						title="Casa"
 					/>
-
-					<TouchableOpacity style={styles.modalButtonAdd} onPress={editMode ? saveEdit : handleAdd}>
-						<Text style={styles.modalButtonAddText}>{editMode ? 'Atualizar tarefa' : 'Cadastrar'}</Text>
+					<TouchableOpacity style={styles.modalButtonAdd} onPress={() => handleAddModelo('casa')}>
+						<Text style={styles.modalButtonAddText}>Casa</Text>
 					</TouchableOpacity>
-					<View style={styles.containerImage}>
-						<Image source={Gatinho} />  
-					</View>
 				</Animatable.View>
 				
 			</View>

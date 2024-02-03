@@ -10,11 +10,12 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { v4 as uuid } from 'uuid';
 
-import TaskList from '../TaskList';
-import BackgroundImage from "../../Images/background.jpg";
-import FabButton from '../FabButton';
-import NovaTarefa from '../NovaTarefa/NovaTarefa';
-import ModeloTarefas from '../ModeloTarefas/ModeloTarefas';
+import TaskList from '../components/TaskList';
+import BackgroundImage from "../Images/background.jpg";
+import FabButton from '../components/FabButton';
+
+import NovaTarefa from './NovaTarefa';
+import ModeloTarefas from './ModeloTarefa';
 
 export default function TelaInicial() {
   const [tasks, setTasks] = useState([]);

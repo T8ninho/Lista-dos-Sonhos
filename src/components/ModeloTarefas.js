@@ -3,11 +3,12 @@ import * as Animatable from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
 
 import Gatinho from '../../Images/Gatinho.gif'
-import TaskList from "../TaskList";
+import TaskList from "..";
+import ButtonModelo from "./ButtonModelo";
 
 export default function ModeloTarefas({ visible, handleAddModelo, BackButton }) {
 	return(
-		<Modal animationType="slide" transparent={false} visible={visible}>
+		<Modal animationType="fade" transparent={true} visible={visible}>
 			<View style={styles.modal}>
 				<View style={styles.modalHeader}>
 					<TouchableOpacity onPress={BackButton}>
@@ -17,27 +18,12 @@ export default function ModeloTarefas({ visible, handleAddModelo, BackButton }) 
 				</View>
 
 				<Animatable.View style={styles.modalBody} animation="fadeInUp">
-					<TaskList 
-						data={[{'id': 'casa'}]} 
-						handleDelete={() => handleDelete(item.id)} 
-						handleComplete={() => handleComplete(item.id)}
-						handleEdit={() => handleEdit(item)}
+					<ButtonModelo 
+						title="Casa"
 					/>
 					<TouchableOpacity style={styles.modalButtonAdd} onPress={() => handleAddModelo('casa')}>
 						<Text style={styles.modalButtonAddText}>Casa</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.modalButtonAdd} onPress={() => handleAddModelo('Pedra')}>
-						<Text style={styles.modalButtonAddText}>Pedra</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.modalButtonAdd} onPress={() => handleAddModelo('Arroz')}>
-						<Text style={styles.modalButtonAddText}>Arroz</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.modalButtonAdd} onPress={() => handleAddModelo('Cachorro')}>
-						<Text style={styles.modalButtonAddText}>Cachorro</Text>
-					</TouchableOpacity>
-					<View style={styles.containerImage}>
-						<Image source={Gatinho} />  
-					</View>
 				</Animatable.View>
 				
 			</View>
