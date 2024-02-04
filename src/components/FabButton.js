@@ -1,5 +1,5 @@
-import React, { Component, useState } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback, Animated } from 'react-native';
+import React, { Component } from 'react';
+import { View,  StyleSheet, TouchableWithoutFeedback, Animated } from 'react-native';
 import {AntDesign} from '@expo/vector-icons'
 
 export default class FabButton extends Component {

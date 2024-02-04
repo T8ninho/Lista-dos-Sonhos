@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons'
+import { StyleSheet, View, Text } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import IconButton from './IconButton';
 
 export default function TaskList({ data, handleDelete, handleComplete, handleEdit }){
-    return(
+    // if(!data.completed) {
+      return(
         <Animatable.View  style={styles.container} animation="bounceIn" useNativeDriver >
               <IconButton onPress={handleComplete} name={data.completed ? "check-square-o" : "square-o"} size={30} color={data.completed ? "#00ff00" : "#fff"} />
               <Text style={data.completed ? styles.taskCompleted : styles.taskIncomplete}>{data.title}</Text>
@@ -15,6 +15,7 @@ export default function TaskList({ data, handleDelete, handleComplete, handleEdi
               </View>
         </Animatable.View>
     )
+    // }
 }
 
 const styles = StyleSheet.create({

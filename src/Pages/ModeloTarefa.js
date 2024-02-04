@@ -1,25 +1,29 @@
-import { Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import * as Animatable from 'react-native-animatable';
-import { Ionicons } from '@expo/vector-icons';
+import { FlatList, Modal, StyleSheet, View } from "react-native";
 
-import TaskList from "../components/TaskList";
 import ButtonAdd from "../components/ButtonAdd";
+import ButtonBack from "../components/ButtonBack";
+import Categorias from '../components/Categorias'
 
 export default function ModeloTarefas({ visible, handleAddModelo, handleBack }) {
+
+	const Feira = Categorias.feira.forEach((item) => {
+		console.log(item.title)
+	  });
+
 	return(
 		<Modal animationType="fade" transparent={true} visible={visible} onRequestClose={handleBack}>
 			<View style={styles.modal}>
-				<View style={styles.modalHeader}>
-					<TouchableOpacity onPress={handleBack}>
-						<Ionicons style={{marginLeft: 5, marginRight: 5}} name="arrow-back" size={30} color="#fff" />
-					</TouchableOpacity>
-					<Text style={styles.modalTitle}>Modelo de lista</Text>
+				<ButtonBack onPress={handleBack}>Modelo de lista</ButtonBack>
+				<View style={{marginTop: 15}}>
 				</View>
 
-				<View style={{marginTop: 15}}>
-					<ButtonAdd onPress={handleAddModelo}>Arroz</ButtonAdd>
-					<ButtonAdd onPress={handleAddModelo}>Azulejo</ButtonAdd>
-				</View>
+				<FlatList
+					style={{marginTop: 15}}
+					marginHorizontal={10}
+					data={Categorias.limpeza}
+					keyExtractor={(item) => item.id}
+					renderItem={({item}) => <ButtonAdd onPress={handleAddModelo}>{item.title}</ButtonAdd>}
+      			/>	
 				
 			</View>
       	</Modal>

@@ -3,18 +3,14 @@ import * as Animatable from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
 
 import Gatinho from '../Images/Gatinho.gif'
+import ButtonAdd from "../components/ButtonAdd";
+import ButtonBack from "../components/ButtonBack";
 
 export default function NovaTarefa({ visible, input, handleAdd, setInput, handleBack, editMode, saveEdit }) {
 	return(
 		<Modal animationType="fade" transparent={false} visible={visible} onRequestClose={handleBack}>
 			<View style={styles.modal}>
-				<View style={styles.modalHeader}>
-					<TouchableOpacity onPress={handleBack}>
-						<Ionicons style={{marginLeft: 5, marginRight: 5}} name="arrow-back" size={30} color="#fff" />
-					</TouchableOpacity>
-					<Text style={styles.modalTitle}>{editMode ? 'Editando Tarefa' : 'Nova Tarefa'}</Text>
-				</View>
-
+				<ButtonBack onPress={handleBack}>{editMode ? 'Editando Tarefa' : 'Nova Tarefa'}</ButtonBack>
 				<Animatable.View style={styles.modalBody} animation="fadeInUp">
 					<TextInput 
 						multiline={true}
@@ -24,10 +20,7 @@ export default function NovaTarefa({ visible, input, handleAdd, setInput, handle
 						value={input}
 						onChangeText={ (texto) => setInput(texto)}
 					/>
-
-					<TouchableOpacity style={styles.modalButtonAdd} onPress={editMode ? saveEdit : handleAdd}>
-						<Text style={styles.modalButtonAddText}>{editMode ? 'Atualizar tarefa' : 'Cadastrar'}</Text>
-					</TouchableOpacity>
+					<ButtonAdd onPress={editMode ? saveEdit : handleAdd}>{editMode ? 'Atualizar tarefa' : 'Cadastrar'}</ButtonAdd>
 					<View style={styles.containerImage}>
 						<Image source={Gatinho} />  
 					</View>
@@ -75,18 +68,5 @@ const styles = StyleSheet.create({
 		textAlignVertical: 'top',
 		color: '#000',
 		borderRadius: 5,
-	},
-	modalButtonAdd: {
-		backgroundColor: '#2f7',
-		marginTop: 10,
-		alignItems: 'center',
-		justifyContent: 'center',
-		marginLeft: 10,
-		marginRight: 10,
-		height: 40,
-		borderRadius: 5,
-	},
-	modalButtonAddText: {
-		fontSize: 20,
-	},
+	}
 })

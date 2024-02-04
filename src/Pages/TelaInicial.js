@@ -13,7 +13,6 @@ import { v4 as uuid } from 'uuid';
 import TaskList from '../components/TaskList';
 import BackgroundImage from "../Images/background.jpg";
 import FabButton from '../components/FabButton';
-import Categorias from '../components/Categorias';
 
 import NovaTarefa from './NovaTarefa';
 import ModeloTarefas from './ModeloTarefa';
@@ -107,10 +106,6 @@ export default function TelaInicial() {
     handleBack()
     console.log(updatedTasks)
   }
-
-  Categorias.feira.forEach((item) => {
-    console.log(item.title);
-  });
 
   return (
     <View style={styles.container}>
