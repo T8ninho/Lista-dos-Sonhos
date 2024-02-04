@@ -3,27 +3,23 @@ import * as Animatable from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
 
 import TaskList from "../components/TaskList";
-import ButtonModelo from "../components/ModeloTarefa/ButtonModelo";
+import ButtonAdd from "../components/ButtonAdd";
 
-export default function ModeloTarefas({ visible, handleAddModelo, BackButton }) {
+export default function ModeloTarefas({ visible, handleAddModelo, handleBack }) {
 	return(
-		<Modal animationType="fade" transparent={true} visible={visible}>
+		<Modal animationType="fade" transparent={true} visible={visible} onRequestClose={handleBack}>
 			<View style={styles.modal}>
 				<View style={styles.modalHeader}>
-					<TouchableOpacity onPress={BackButton}>
+					<TouchableOpacity onPress={handleBack}>
 						<Ionicons style={{marginLeft: 5, marginRight: 5}} name="arrow-back" size={30} color="#fff" />
 					</TouchableOpacity>
 					<Text style={styles.modalTitle}>Modelo de lista</Text>
 				</View>
 
-				<Animatable.View style={styles.modalBody} animation="fadeInUp">
-					<ButtonModelo 
-						title="Casa"
-					/>
-					<TouchableOpacity style={styles.modalButtonAdd} onPress={() => handleAddModelo('casa')}>
-						<Text style={styles.modalButtonAddText}>Casa</Text>
-					</TouchableOpacity>
-				</Animatable.View>
+				<View style={{marginTop: 15}}>
+					<ButtonAdd onPress={handleAddModelo}>Arroz</ButtonAdd>
+					<ButtonAdd onPress={handleAddModelo}>Azulejo</ButtonAdd>
+				</View>
 				
 			</View>
       	</Modal>

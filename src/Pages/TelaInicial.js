@@ -13,6 +13,7 @@ import { v4 as uuid } from 'uuid';
 import TaskList from '../components/TaskList';
 import BackgroundImage from "../Images/background.jpg";
 import FabButton from '../components/FabButton';
+import Categorias from '../components/Categorias';
 
 import NovaTarefa from './NovaTarefa';
 import ModeloTarefas from './ModeloTarefa';
@@ -53,7 +54,7 @@ export default function TelaInicial() {
     console.log(tasks)
   }, [tasks]);
 
-  const BackButton = () => {
+  const handleBack = () => {
     setEditMode(false)
     setInput('')
     setTaskEdit([])
@@ -62,9 +63,16 @@ export default function TelaInicial() {
   }
 
   const handleAdd = () => {
+
     if (input.trim() !== '') {
-      setTasks([...tasks, { id: uuid(), title: input, completed: false }]);
-      BackButton()
+      const data = input.split(',').map((item, index) => ({
+        id: uuid(),
+        title: item.trim(),
+        // completed: false
+      }));
+      console.log(data)
+      setTasks([...tasks, ...data]);
+      handleBack()
     }
   };
   const handleAddModelo = (item) => {
@@ -96,9 +104,13 @@ export default function TelaInicial() {
     item.id === taskEdit.id ? { ...item, id: item.id, title: input, completed: item.completed } : item
     );
     setTasks(updatedTasks) 
-    BackButton()
+    handleBack()
     console.log(updatedTasks)
   }
+
+  Categorias.feira.forEach((item) => {
+    console.log(item.title);
+  });
 
   return (
     <View style={styles.container}>
@@ -129,14 +141,14 @@ export default function TelaInicial() {
         input={input}
         handleAdd={handleAdd}
         setInput={setInput}
-        BackButton={BackButton}
+        handleBack={handleBack}
         editMode={editMode}
         saveEdit={saveEdit}
       />
       <ModeloTarefas
         visible={openModalModelo}
         handleAddModelo={handleAddModelo}
-        BackButton={BackButton}
+        handleBack={handleBack}
       />
 
       <FabButton

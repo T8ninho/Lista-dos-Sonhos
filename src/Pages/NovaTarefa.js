@@ -4,12 +4,12 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Gatinho from '../Images/Gatinho.gif'
 
-export default function NovaTarefa({ visible, input, handleAdd, setInput, BackButton, editMode, saveEdit }) {
+export default function NovaTarefa({ visible, input, handleAdd, setInput, handleBack, editMode, saveEdit }) {
 	return(
-		<Modal animationType="fade" transparent={false} visible={visible}>
+		<Modal animationType="fade" transparent={false} visible={visible} onRequestClose={handleBack}>
 			<View style={styles.modal}>
 				<View style={styles.modalHeader}>
-					<TouchableOpacity onPress={BackButton}>
+					<TouchableOpacity onPress={handleBack}>
 						<Ionicons style={{marginLeft: 5, marginRight: 5}} name="arrow-back" size={30} color="#fff" />
 					</TouchableOpacity>
 					<Text style={styles.modalTitle}>{editMode ? 'Editando Tarefa' : 'Nova Tarefa'}</Text>
