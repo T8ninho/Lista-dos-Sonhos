@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  ImageBackground, 
+import {
   StyleSheet, 
   Text, 
   View, 
@@ -11,11 +10,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { v4 as uuid } from 'uuid';
 
 import TaskList from '../components/TaskList';
-import BackgroundImage from "../Images/background.jpg";
 import FabButton from '../components/FabButton';
 
 import NovaTarefa from './NovaTarefa';
 import ModeloTarefas from './ModeloTarefa';
+import BgImage from '../components/BgImage';
 
 export default function TelaInicial() {
   const [tasks, setTasks] = useState([]);
@@ -109,7 +108,7 @@ export default function TelaInicial() {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={BackgroundImage} resizeMode="cover" style={styles.image} blurRadius={6}>
+      <BgImage>
       <StatusBar backgroundColor="#171d31" barStyle="light-content" />
       
       <View style={styles.titleView}>
@@ -152,7 +151,7 @@ export default function TelaInicial() {
         style={{ bottom: 80, right: 60 }}
       />
 
-      </ImageBackground>
+      </BgImage>
     </View>
   );
 } 
@@ -161,10 +160,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#071e42',
-  },
-  image: {
-    flex: 1,
-    justifyContent: "center"
   },
   titleView: {
     marginTop: 5,
