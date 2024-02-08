@@ -1,14 +1,16 @@
-import { Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Modal, StyleSheet,  TextInput,  View } from "react-native";
 import * as Animatable from 'react-native-animatable';
-import { Ionicons } from '@expo/vector-icons';
 
+import BgImage from "../components/BgImage";
 import Gatinho from '../Images/Gatinho.gif'
 import ButtonAdd from "../components/ButtonAdd";
 import ButtonBack from "../components/ButtonBack";
 
+
 export default function NovaTarefa({ visible, input, handleAdd, setInput, handleBack, editMode, saveEdit }) {
 	return(
 		<Modal animationType="fade" transparent={false} visible={visible} onRequestClose={handleBack}>
+		<BgImage>
 			<View style={styles.modal}>
 				<ButtonBack onPress={handleBack}>{editMode ? 'Editando Tarefa' : 'Nova Tarefa'}</ButtonBack>
 				<Animatable.View style={styles.modalBody} animation="fadeInUp">
@@ -27,6 +29,7 @@ export default function NovaTarefa({ visible, input, handleAdd, setInput, handle
 				</Animatable.View>
 				
 			</View>
+		</BgImage>
       	</Modal>
 	)
 }
@@ -37,7 +40,6 @@ export default function NovaTarefa({ visible, input, handleAdd, setInput, handle
 const styles = StyleSheet.create({
 	modal: {
 		flex: 1,
-		backgroundColor: '#171d31',
 	},
 	modalHeader: {
 		marginLeft: 10,

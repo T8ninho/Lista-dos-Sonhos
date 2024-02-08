@@ -105,7 +105,7 @@ export default function TelaInicial() {
     handleBack()
     console.log(updatedTasks)
   }
-
+  
   return (
     <View style={styles.container}>
       <BgImage>
@@ -116,6 +116,7 @@ export default function TelaInicial() {
       </View>
      
       <FlatList 
+        style={{paddingTop: 10, paddingBottom: 10}}
         marginHorizontal={10}
         data={tasks}
         keyExtractor={(item) => item.id}
@@ -126,8 +127,8 @@ export default function TelaInicial() {
                 handleComplete={() => handleComplete(item.id)}
                 handleEdit={() => handleEdit(item)}
               />
-        )
-        }
+        )}
+        ItemSeparatorComponent={() => <View style={{flex: 1, height: 1, backgroundColor: '#ddd', marginBottom: 10, marginTop: 10}} />}
       />
  
       <NovaTarefa
@@ -164,7 +165,8 @@ const styles = StyleSheet.create({
   titleView: {
     marginTop: 5,
     paddingBottom: 4,
-    borderBottomWidth: 0.5
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#ddd'
   },
   title: {
     fontSize: 35,

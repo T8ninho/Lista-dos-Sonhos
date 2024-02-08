@@ -1,17 +1,19 @@
 import { FlatList, Modal, StyleSheet, View } from "react-native";
 
-import ButtonAdd from "../components/ButtonAdd";
+import ButtonAddModelo from "../components/ButtonAddModelo";
 import ButtonBack from "../components/ButtonBack";
 import Categorias from '../components/Categorias'
+import BgImage from "../components/BgImage";
 
 export default function ModeloTarefas({ visible, handleAddModelo, handleBack }) {
 
-	const Feira = Categorias.feira.forEach((item) => {
-		console.log(item.title)
-	  });
-
+	// const Feira = Categorias.feira.forEach((item) => {
+		
+	// });
+	console.log(Categorias)
 	return(
 		<Modal animationType="fade" transparent={true} visible={visible} onRequestClose={handleBack}>
+			<BgImage>
 			<View style={styles.modal}>
 				<ButtonBack onPress={handleBack}>Modelo de lista</ButtonBack>
 				<View style={{marginTop: 15}}>
@@ -22,10 +24,11 @@ export default function ModeloTarefas({ visible, handleAddModelo, handleBack }) 
 					marginHorizontal={10}
 					data={Categorias.limpeza}
 					keyExtractor={(item) => item.id}
-					renderItem={({item}) => <ButtonAdd onPress={handleAddModelo}>{item.title}</ButtonAdd>}
+					renderItem={({item}) => <ButtonAddModelo onPress={handleAddModelo}>{item.title}</ButtonAddModelo>}
       			/>	
 				
 			</View>
+			</BgImage>
       	</Modal>
 	)
 }
@@ -36,7 +39,7 @@ export default function ModeloTarefas({ visible, handleAddModelo, handleBack }) 
 const styles = StyleSheet.create({
 	modal: {
 		flex: 1,
-		backgroundColor: '#171d31',
+		// backgroundColor: '#171d31',
 	},
 	modalHeader: {
 		marginLeft: 10,
