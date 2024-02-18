@@ -13,14 +13,14 @@ import TaskList from '../components/TaskList';
 import FabButton from '../components/FabButton';
 
 import NovaTarefa from './NovaTarefa';
-import ModeloTarefas from './ModeloTarefa';
+import Temas from './Temas';
 import BgImage from '../components/BgImage';
 
 export default function TelaInicial() {
   const [tasks, setTasks] = useState([]);
   const [taskEdit, setTaskEdit] = useState([]);
   const [openModalTask, setOpenModalTask] = useState(false)
-  const [openModalModelo, setOpenModalModelo] = useState(false)
+  const [openModalTemas, setOpenModalTemas] = useState(false)
   const [input, setInput] = useState('')
   const [editMode, setEditMode] = useState(false)
 
@@ -49,7 +49,6 @@ export default function TelaInicial() {
     };
 
     saveTasks();
-    console.log(tasks)
   }, [tasks]);
 
   const handleBack = () => {
@@ -57,7 +56,7 @@ export default function TelaInicial() {
     setInput('')
     setTaskEdit([])
     setOpenModalTask(false)
-    setOpenModalModelo(false)
+    setOpenModalTemas(false)
   }
 
   const handleAdd = () => {
@@ -68,7 +67,6 @@ export default function TelaInicial() {
         title: item.trim(),
         // completed: false
       }));
-      console.log(data)
       setTasks([...tasks, ...data]);
       handleBack()
     }
@@ -83,7 +81,7 @@ export default function TelaInicial() {
   };
 
   const handleComplete = (id) => {
-	const updatedTasks = tasks.map((item) =>
+	  const updatedTasks = tasks.map((item) =>
       item.id === id ? { ...item, completed: !item.completed } : item
     );
     setTasks(updatedTasks) 
@@ -140,15 +138,15 @@ export default function TelaInicial() {
         editMode={editMode}
         saveEdit={saveEdit}
       />
-      <ModeloTarefas
-        visible={openModalModelo}
+      <Temas
+        visible={openModalTemas}
         handleAddModelo={handleAddModelo}
         handleBack={handleBack}
       />
 
       <FabButton
         NovaTarefa={() => setOpenModalTask(true)}
-        ModeloTarefas={() => setOpenModalModelo(true)}
+        Temas={() => setOpenModalTemas(true)}
         style={{ bottom: 80, right: 60 }}
       />
 
