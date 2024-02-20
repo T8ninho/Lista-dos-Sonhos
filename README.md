@@ -5,7 +5,7 @@
 
 **Release Inicial: >>>** *Adicionar* e *Excluir tarefas.*
 
-# Atualizações - Versão: 2.0.0
+# Atualizações - Versão: 2.0.0 (Desenvolvimento - aguarde)
 
 **Adicionado: >>>** *Agora é possível editar tarefas.*<Br />
 **Adicionado: >>>** *Imagem de ceregeiras como plano de fundo.*<Br />
