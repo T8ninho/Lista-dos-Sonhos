@@ -15,8 +15,11 @@ import FabButton from '../components/FabButton';
 import NovaTarefa from './NovaTarefa';
 import Temas from './Temas';
 import BgImage from '../components/BgImage';
+import Listas from '../components/Listas/Listas'
 
 export default function TelaInicial() {
+  const [theme, setTheme] = useState(Listas.Temas[1]);
+
   const [tasks, setTasks] = useState([]);
   const [taskEdit, setTaskEdit] = useState([]);
   const [openModalTask, setOpenModalTask] = useState(false)
@@ -25,6 +28,19 @@ export default function TelaInicial() {
   const [editMode, setEditMode] = useState(false)
 
   useEffect(() => {
+    
+    const loadTheme = async () => {
+      try {
+        const themeStorage = await AsyncStorage.getItem('@theme');
+        if (themeStorage) {
+          setTheme(JSON.parse(themeStorage));
+        }
+      } catch (error) {
+        console.error('Error loading theme:', error);
+      }
+    };
+    loadTheme();
+
     const loadTasks = async () => {
       try {
         const taskStorage = await AsyncStorage.getItem('@tasks');
@@ -35,9 +51,21 @@ export default function TelaInicial() {
         console.error('Error loading tasks:', error);
       }
     };
-    
     loadTasks();
+
   }, []);
+
+  useEffect(() => {
+    const saveTheme = async () => {
+      try {
+        await AsyncStorage.setItem('@theme', JSON.stringify(theme));
+      } catch (error) {
+        console.error('Error saving theme:', error);
+      }
+    };
+
+    saveTheme();
+  }, [theme]);
 
   useEffect(() => {
     const saveTasks = async () => {
@@ -59,8 +87,12 @@ export default function TelaInicial() {
     setOpenModalTemas(false)
   }
 
-  const handleAdd = () => {
+  const handleSetTheme = (item) => {
+    setTheme(item)
+    console.log(item)
+  }
 
+  const handleAdd = () => {
     if (input.trim() !== '') {
       const data = input.split(',').map((item, index) => ({
         id: uuid(),
@@ -70,9 +102,6 @@ export default function TelaInicial() {
       setTasks([...tasks, ...data]);
       handleBack()
     }
-  };
-  const handleAddModelo = (item) => {
-      setTasks([...tasks, { id: uuid(), title: item, completed: false }]);
   };
 
   const handleDelete = (id) => {
@@ -106,7 +135,7 @@ export default function TelaInicial() {
   
   return (
     <View style={styles.container}>
-      <BgImage>
+      <BgImage theme={theme}>
       <StatusBar backgroundColor="#171d31" barStyle="light-content" />
       
       <View style={styles.titleView}>
@@ -137,11 +166,13 @@ export default function TelaInicial() {
         handleBack={handleBack}
         editMode={editMode}
         saveEdit={saveEdit}
+        theme={theme}
       />
       <Temas
         visible={openModalTemas}
-        handleAddModelo={handleAddModelo}
         handleBack={handleBack}
+        theme={theme}
+        handleSetTheme={handleSetTheme}
       />
 
       <FabButton

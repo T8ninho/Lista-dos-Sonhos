@@ -2,7 +2,7 @@ import { TouchableOpacity, Text, Dimensions, ImageBackground } from 'react-nativ
 import * as Animatable from 'react-native-animatable';
 import background_01 from '../Images/background_01.jpg'
 
-export default function TemaItem({item, numColumns}) {
+export default function TemaItem({item, numColumns, onPress}) {
 
 	const windowWidth = Dimensions.get('window').width;
 
@@ -18,7 +18,7 @@ export default function TemaItem({item, numColumns}) {
 						aspectRatio: 1,
 						borderRadius: 5
 					}} 
-					onPress={ () => {} }
+					onPress={onPress}
 				>
 					<ImageBackground
 						blurRadius={6}

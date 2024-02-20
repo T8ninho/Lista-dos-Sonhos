@@ -7,29 +7,29 @@ import ButtonAdd from "../components/ButtonAdd";
 import ButtonBack from "../components/ButtonBack";
 
 
-export default function NovaTarefa({ visible, input, handleAdd, setInput, handleBack, editMode, saveEdit }) {
+export default function NovaTarefa({ visible, input, handleAdd, setInput, handleBack, editMode, saveEdit, theme }) {
 	return(
 		<Modal animationType="fade" transparent={false} visible={visible} onRequestClose={handleBack}>
-		<BgImage>
-			<View style={styles.modal}>
-				<ButtonBack onPress={handleBack}>{editMode ? 'Editando Tarefa' : 'Nova Tarefa'}</ButtonBack>
-				<Animatable.View style={styles.modalBody} animation="fadeInUp">
-					<TextInput 
-						multiline={true}
-						placeholderTextColor="#000"
-						placeholder="O que precisa fazer hoje?" 
-						style={styles.modalInput}
-						value={input}
-						onChangeText={ (texto) => setInput(texto)}
-					/>
-					<ButtonAdd onPress={editMode ? saveEdit : handleAdd}>{editMode ? 'Atualizar tarefa' : 'Cadastrar'}</ButtonAdd>
-					<View style={styles.containerImage}>
-						<Image source={Gatinho} />  
-					</View>
-				</Animatable.View>
-				
-			</View>
-		</BgImage>
+			<BgImage theme={theme}>
+				<View style={styles.modal}>
+					<ButtonBack onPress={handleBack}>{editMode ? 'Editando Tarefa' : 'Nova Tarefa'}</ButtonBack>
+					<Animatable.View style={styles.modalBody} animation="fadeInUp">
+						<TextInput 
+							multiline={true}
+							placeholderTextColor="#000"
+							placeholder="O que precisa fazer hoje?" 
+							style={styles.modalInput}
+							value={input}
+							onChangeText={ (texto) => setInput(texto)}
+						/>
+						<ButtonAdd onPress={editMode ? saveEdit : handleAdd}>{editMode ? 'Atualizar tarefa' : 'Cadastrar'}</ButtonAdd>
+						<View style={styles.containerImage}>
+							<Image source={Gatinho} />  
+						</View>
+					</Animatable.View>
+					
+				</View>
+			</BgImage>
       	</Modal>
 	)
 }
@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
 		marginLeft: 10,
 		marginRight: 10,
 		marginTop: 30,
-		backgroundColor: '#fff',
 		padding: 9,
 		height: 85,
 		textAlignVertical: 'top',

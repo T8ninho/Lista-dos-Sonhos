@@ -5,13 +5,13 @@ import ButtonBack from "../components/ButtonBack";
 import Listas from '../components/Listas/Listas'
 import BgImage from "../components/BgImage";
 
-export default function Temas({ visible, handleAddModelo, handleBack }) {
+export default function Temas({ visible, handleSetTheme, theme, handleBack }) {
 
 	const numColumns = 3;
 
 	return(
 		<Modal animationType="fade" transparent={true} visible={visible} onRequestClose={handleBack}>
-			<BgImage>
+			<BgImage theme={theme}>
 				<View style={styles.modal}>
 					<ButtonBack onPress={handleBack}>Temas</ButtonBack>
 						<FlatList
@@ -20,7 +20,7 @@ export default function Temas({ visible, handleAddModelo, handleBack }) {
 							numColumns={numColumns}
       						contentContainerStyle={styles.container}
 							keyExtractor={(item) => item.id}
-							renderItem={({item}) => <TemaItem numColumns={numColumns} item={item} onPress={handleAddModelo}/>}
+							renderItem={({item}) => <TemaItem numColumns={numColumns} item={item} onPress={() => handleSetTheme(item)}/>}
 						/>
 				</View>
 			</BgImage>
