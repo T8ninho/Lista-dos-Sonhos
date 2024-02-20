@@ -2,26 +2,26 @@ import { FlatList, Modal, StyleSheet, View } from "react-native";
 
 import TemaItem from "../components/TemaItem";
 import ButtonBack from "../components/ButtonBack";
-import Categorias from '../components/Categorias'
+import Listas from '../components/Listas/Listas'
 import BgImage from "../components/BgImage";
 
 export default function Temas({ visible, handleAddModelo, handleBack }) {
 
+	const numColumns = 3;
 
 	return(
 		<Modal animationType="fade" transparent={true} visible={visible} onRequestClose={handleBack}>
 			<BgImage>
 				<View style={styles.modal}>
 					<ButtonBack onPress={handleBack}>Temas</ButtonBack>
-					<View style={styles.modalContainer}>
 						<FlatList
-							style={{marginTop: 15}}
 							marginHorizontal={10}
-							data={Categorias.limpeza}
+							data={Listas.Temas}
+							numColumns={numColumns}
+      						contentContainerStyle={styles.container}
 							keyExtractor={(item) => item.id}
-							renderItem={({item}) => <TemaItem onPress={handleAddModelo}>{item.title}</TemaItem>}
+							renderItem={({item}) => <TemaItem numColumns={numColumns} item={item} onPress={handleAddModelo}/>}
 						/>
-					</View>					
 				</View>
 			</BgImage>
       	</Modal>
@@ -38,7 +38,10 @@ const styles = StyleSheet.create({
 	},
 	modalContainer: {
 		justifyContent: 'center',
-		flexDirection: 'row',
 
-	}
+	},
+	container: {
+		justifyContent: 'space-between',
+		alignItems: 'center'
+	  },
 })

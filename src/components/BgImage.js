@@ -1,10 +1,10 @@
 import { ImageBackground } from "react-native";
-import BackgroundImage from '../Images/background.jpg';
+import background_01 from '../Images/background_01.jpg';
 
 export default function BgImage({children}) {
 	return(
 		<ImageBackground 
-			source={BackgroundImage} 
+			source={background_01} 
 			resizeMode="cover" 
 			style={{ flex: 1, justifyContent: "center",  }} 
 			blurRadius={6}
