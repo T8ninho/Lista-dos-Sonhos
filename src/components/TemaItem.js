@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, Dimensions, ImageBackground } from 'react-native';
+import { TouchableOpacity, Text, Dimensions, ImageBackground, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import background_01 from '../Images/background_01.jpg'
 
@@ -32,8 +32,15 @@ export default function TemaItem({item, numColumns, onPress}) {
 						}}  
 						source={item.image}>
 						
-						<Text style={{color: item.image ? "#fff" : "#000" }}>{item.title}</Text>
-						<Text>{item.image}</Text>
+						<View style={{
+							backgroundColor: '#ffffff40',
+							width: '100%',
+							alignItems: 'center',
+							justifyContent: 'center',
+							height: '30%'
+						}}>
+							<Text style={{color: "#000", fontSize: 16}}> {item.title} </Text>
+						</View>
 					</ImageBackground>
 				</TouchableOpacity>
 		</Animatable.View>

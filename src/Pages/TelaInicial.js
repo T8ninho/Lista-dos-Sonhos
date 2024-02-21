@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#071e42',
   },
   titleView: {
-    marginTop: 5,
+    backgroundColor: '#171d31',
     paddingBottom: 4,
     borderBottomWidth: 0.5,
     borderBottomColor: '#ddd'
@@ -202,10 +202,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     textShadowColor: '#000',
-    textShadowOffset: {
-      width: 3,
-      height: 3
-    },
     textShadowRadius: 10,
   },
   fab: {

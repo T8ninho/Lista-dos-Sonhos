@@ -23,22 +23,22 @@ const Listas = {
 		{
 			"id": "6f2579b4-bd13-405a-b399-2e36f7f725dc", 
 			"title": "Tema 05",
-			"image": ""
+			"image": require('../../Images/background_05.jpg')
 		}, 
 		{
 			"id": "b2a05f17-7a05-4784-9e6f-b2fc1e2e6e42", 
 			"title": "Tema 06",
-			"image": ""
+			"image": require('../../Images/background_06.jpg')
 		}, 
 		{
 			"id": "f9e2ff1c-cfb4-45c1-9aac-6dd488b15521", 
 			"title": "Tema 07",
-			"image": ""
+			"image": require('../../Images/background_07.png')
 		}, 
 		{
 			"id": "a3cc8739-e3b6-4aa9-a741-bcb3e8b2d476", 
 			"title": "Tema 08",
-			"image": ""
+			"image": require('../../Images/background_08.jpg')
 		}
 	]
 }
