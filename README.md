@@ -17,3 +17,5 @@
 **Corrigido: >>>** *StatusBar se tornava escura atrapalhando a visualização de possíveis notificações do usuário.*<Br />
 **Corrigido: >>>** *Adicionada biblioteca UUID possibilitando Ids únicos para tarefas.*<Br />
 **Corrigido: >>>** *Bug com a imagem do gatinho que ficava por cima do título de retornar a tela anterior em dispositivos com resoluções menores.*
+
+<a href="http://t8ninho.com/">T8ninho | Desenvolvedor Front-End</a>
